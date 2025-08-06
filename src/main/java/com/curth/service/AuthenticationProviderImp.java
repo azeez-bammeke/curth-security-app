@@ -8,6 +8,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 @Component
 public class AuthenticationProviderImp implements AuthenticationProvider {
 
@@ -16,7 +20,7 @@ public class AuthenticationProviderImp implements AuthenticationProvider {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
         if (username.equals("thom") && password.equals("john")) {
-            return new UsernamePasswordAuthenticationToken(username, password);
+            return new UsernamePasswordAuthenticationToken(username, password, List.of());
         } else {
             throw new BadCredentialsException("Invalid username and password");
         }

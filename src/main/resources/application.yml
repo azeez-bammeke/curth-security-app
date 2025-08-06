@@ -4,3 +4,6 @@ spring:
     name: curth-security-app
 server:
   port: 9090
+logging:
+  level:
+    org.springframework.security: debug

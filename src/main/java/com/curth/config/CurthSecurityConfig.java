@@ -19,19 +19,21 @@ public class CurthSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
-
-        UserDetails user = User.withUsername("thom").password(bCryptPasswordEncoder().encode("john")).authorities("ROLE_READ", "ROLE_WRITE").build();
-        userDetailsManager.createUser(user);
-        return userDetailsManager;
-    }
+//    This is in memory user service, app is now using custom Authentication provider
+//    @Bean
+//    UserDetailsService userDetailsService() {
+//        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
+//
+//        UserDetails user = User.withUsername("thom").password(bCryptPasswordEncoder().encode("john")).authorities("ROLE_READ", "ROLE_WRITE").build();
+//        userDetailsManager.createUser(user);
+//        return userDetailsManager;
+//    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.httpBasic(Customizer.withDefaults());
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().authenticated());
+//        http.httpBasic(Customizer.withDefaults());
+        http.formLogin(Customizer.withDefaults());
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers("/hello").authenticated());
         return http.build();
     }
 
