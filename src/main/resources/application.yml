@@ -1,0 +1,6 @@
+
+spring:
+  application:
+    name: curth-security-app
+server:
+  port: 9090
